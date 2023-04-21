@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import './Article.css';
+import { FiShare } from 'react-icons/fi';
+import { FcAddImage } from 'react-icons/fc';
+import { FcVideoFile } from 'react-icons/fc';
+
 
 function ParagraphWithLink(props) {
   return (
@@ -19,20 +23,96 @@ function ParentButton(props) {
 
   return (
     <div>
-      <button onClick={handleButtonClick}>Select Article</button>
+      <button class="dir-control" onClick={handleButtonClick}>Select Article</button>
       {isOpen && (
         <div>
-          <button onClick={() => props.handleModeChange('nostalgia')}>Article no 2</button>
-          <button onClick={() => props.handleModeChange('alga')}>Article no 3</button>
+          <button class="dir-control" onClick={() => props.handleModeChange('nostalgia')}>Article no 2</button>
+          <button class="dir-control" onClick={() => props.handleModeChange('alga')}>Article no 3</button>
         </div>
       )}
     </div>
   );
 }
 
+function AddImage(props) {
+  const handleFileSelect = (e) => {
+    if (e.target.files[0]) {
+      const file = e.target.files[0];
+      console.log(file.name);
+    }
+  };
+
+  return (
+    <label className="add-image" htmlFor="picture-input">
+      <input
+        type="file"
+        id="picture-input"
+        accept="image/*"
+        style={{ display: 'none' }}
+        onChange={handleFileSelect}
+      />
+      < FcAddImage />
+    </label>
+  );
+}
+
+function AddVideo(props) {
+  const handleFileSelect = (e) => {
+    if (e.target.files[0]) {
+      const file = e.target.files[0];
+      console.log(file.name);
+    }
+  };
+
+  return (
+    <label className="add-video" htmlFor="video-input">
+      <input
+        type="file"
+        id="video-input"
+        accept="video/*"
+        style={{ display: 'none' }}
+        onChange={handleFileSelect}
+      />
+      <FcVideoFile />
+    </label>
+  );
+}
+
+
+
+function SocialMediaDropdown() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleButtonClick = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const socialMediaLinks = [    {      url: "https://www.facebook.com/sharer/sharer.php?u=https://example.com",      iconUrl: 'https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-facebook_-512.png',      altText: 'Facebook icon'    },    {      url: "https://twitter.com/intent/tweet?url=https://example.com&text=Check%20out%20this%20article",      iconUrl: 'https://png.pngtree.com/png-vector/20221018/ourmid/pngtree-twitter-social-media-round-icon-png-image_6315985.png',      altText: 'Twitter icon'    },    {      url: "https://www.instagram.com/?url=https://example.com",      iconUrl: 'https://cdn-icons-png.flaticon.com/512/174/174855.png',      altText: 'Instagram icon'    }  ];
+
+  return (
+    <div>
+      <div className="dropdown-button" onClick={handleButtonClick}>
+        <FiShare />
+      </div>
+      {isOpen && (
+        <ul className="dropdown-menu">
+          {socialMediaLinks.map((link, index) => (
+            <li key={index}>
+            <a href={link.url}>
+              <img src={link.iconUrl} alt={link.altText} />
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+);
+}
+
 
 function Article() {
   const [viewMode, setViewMode] = useState('article');
+  const [imageFile, setImageFile] = useState(null);
 
   const handleModeChange = (mode) => {
     setViewMode(mode);
@@ -42,9 +122,18 @@ function Article() {
     setViewMode('article');
   };
 
+  const handleImageSelect = (e) => {
+    if (e.target.files[0]) {
+      setImageFile(e.target.files[0]);
+    }
+  };
+  
   return (
     <div className="article-wrapper">
       <div className="article-content">
+      
+      <div> <SocialMediaDropdown /> </div>
+
         {viewMode === 'article' ? (
           <>
             <h1 style={{ textAlign: 'center', marginBottom: '10px' }}>NFT Shill Art - EP #1</h1>
@@ -63,8 +152,7 @@ function Article() {
                 linkText="@Khadee_ize on Twitter"
               />
             </div>
-            
-            
+
             <div style={{ marginBottom: '10px' }}>
               <h3 style={{ fontWeight: 'normal' }}>2. IN MY FEELINGS</h3>
 
@@ -74,10 +162,26 @@ function Article() {
                 linkText="@Dream_NFT1 on Twitter"
               />
             </div>
-
-            <img src="" alt="Gifted PFP" style={{ width: '300px', height: '300px', borderRadius: '50%', border: '10px solid gold', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)' }} />
+            
+            <img src="imageFile" />
+            
+            <div className="app"> <AddImage /> <AddVideo /> </div>
 
               <ParentButton handleModeChange={handleModeChange} /> 
+              
+
+              <img
+              src=""
+              alt="Gifted PFP"
+              style={{
+                width: '300px',
+                height: '300px',
+                borderRadius: '50%',
+                border: '10px solid gold',
+                boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+              }}
+            />
+
           </>
 
 
@@ -109,14 +213,16 @@ function Article() {
             linkText="@VintageCarNFT on Twitter"
           />
         </div>
+        
+        <div className="app"> <AddImage /> <AddVideo /> </div>
+
+        <div className="article-buttons-wrapper">  
+          <button class="dir-control" onClick={() => handleBackButton()}>Back to Article</button>
+        </div>
+          
+        <ParentButton handleModeChange={handleModeChange} />
 
         <img src="" alt="Nostalgia Art" style={{ width: '300px', height: '300px', borderRadius: '50%', border: '10px solid gold', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)' }} />
-        <div className="article-buttons-wrapper">
-          <button onClick={() => handleBackButton()}>Back to Article</button>
-          <button onClick={() => handleModeChange('alga')}>Article no 3</button>
-        </div>
-
-        <ParentButton handleModeChange={handleModeChange} />
       </>
 
 
@@ -150,13 +256,15 @@ function Article() {
           />
         </div>
 
-        <img src="" alt="Algae Art" style={{ width: '300px', height: '300px', borderRadius: '50%', border: '10px solid gold', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)' }} />
+        <div className="app"> <AddImage /> <AddVideo /> </div>
+        
         <div className="article-buttons-wrapper">
-          <button onClick={() => handleBackButton()}>Back to Article</button>
-          <button onClick={() => handleModeChange('nostalgia')}>Article no 2</button>
+          <button class="dir-control" onClick={() => handleBackButton()}>Back to Article</button>
         </div>
-
+        
         <ParentButton handleModeChange={handleModeChange} />
+
+        <img src="" alt="Algae Art" style={{ width: '300px', height: '300px', borderRadius: '50%', border: '10px solid gold', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)' }} />
 
       </>
     ) : null}

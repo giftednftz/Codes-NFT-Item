@@ -55,7 +55,229 @@ button {
   }
   
   button:hover {
-    background-color: #000000;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: #000000;
   }
   
+  .dir-control {
+    --borderWidth: 2;
+    --buttonColor: #c7edef;
+    --bg: hsl(0, 0%, 5%);
+    --backdrop: transparent;
+    --fontSize: 1;
+    --horizontalPadding: 16;
+    --verticalPadding: 8;
+    background: var(--backdrop);
+    border: calc(var(--borderWidth) * 1px) solid var(--buttonColor);
+    border-radius: 9999px;
+    text-align: center;
+    line-height: 24px;
+    color: var(--textColor, var(--buttonColor));
+    cursor: pointer;
+    font-size: calc(var(--fontSize) * 1rem);
+    font-weight: bold;
+    font-family: sans-serif;
+    outline: transparent;
+    padding: calc(var(--verticalPadding) * 1px) calc(var(--horizontalPadding) * 1px);
+    position: relative;
+    text-decoration: none;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    transition: transform 0.2s;
+    transform: translate(0, calc(var(--y, 0) * 1%)) scale(var(--scale, 1));
+  }
+  
+  /* .floating-button {
+    position: absolute;
+    right: 20px;
+    right: 20px;
+  }
+  
+  .main-button {
+    background-color: #f7f5f5;
+    border-radius: 30%;
+    border: none;
+    color: white;
+    font-size: 15px;
+    width: 70px;
+    height: 35px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  .main-button:hover {
+    background-color: #7c7d80;
+  }
+  
+  .sub-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 60px;
+    right: 80px;
+  }
+  
+  .sub-button {
+    background-color: #faf7f7;
+    border-radius: 30%;
+    color: rgb(17, 16, 16);
+    font-size: 11px;
+    width: 80px;
+    height: 40px;
+    margin: 0px 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+  }
+  
+  .sub-button:hover {
+    background-color: #7c7d80;
+  }
+  
+  label[for="picture-input"], label[for="video-input"] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  input[type="file"] {
+    display: none;
+  }
+   */
+   .add-image, .add-video {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  .add-image:hover, .add-video:hover {
+    background-color: #0069d9;
+  }
+  
+  .app {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .dir-control {
+    margin-right: 10px;
+  }
+  
+  
+
+  .dropdown-button {
+    background:#fdfbfb;
+    color: rgb(12, 12, 12);
+    border-radius: 30%;
+    border: none;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+    padding: 10px 20px;
+    text-align: center;
+    cursor: pointer;
+    position: absolute;
+    right: 110px;
+    top: 85px;
+  }
+
+  .dropdown-button:hover {
+    background-color: #7c7d80;
+  }
+  .dropdown-menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    right: 110px;
+    top: 120px; /* adjust the top position as needed */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .dropdown-menu li {
+    display: inline-block;
+    margin: 5px 0px;
+    padding: 0;
+    margin-right: 10px;
+  }
+
+  .dropdown-menu img {
+    max-width: 30px;
+    max-height: 30px;
+    margin: auto 0;
+  }
+  
+  @media screen and (max-width: 767px) {
+    /* styles for small screens */
+    .article-wrapper {
+    padding: 30px;
+    }
+    
+    .article-content {
+    max-width: 100%;
+    padding: 0 20px;
+    }
+    
+    .article-image {
+    width: 200px;
+    height: 200px;
+    }
+    
+    .dir-control {
+    width: 150px;
+    height: 30px;
+    font-size: 0.8rem;
+    }
+    
+    .main-button {
+    font-size: 12px;
+    width: 50px;
+    height: 25px;
+    }
+    }
+    
+    @media screen and (min-width: 768px) and (max-width: 1023px) {
+    /* styles for medium screens */
+    .article-wrapper {
+    padding: 40px;
+    }
+    
+    .article-content {
+    max-width: 100%;
+    padding: 0 50px;
+    }
+    
+    .article-image {
+    width: 250px;
+    height: 250px;
+    }
+    
+    .dir-control {
+    width: 170px;
+    height: 35px;
+    font-size: 1rem;
+    }
+    
+    .main-button {
+    font-size: 14px;
+    width: 60px;
+    height: 30px;
+    }
+    }
+    
+    
+    
+    
+    
