@@ -26,6 +26,7 @@ function ParentButton(props) {
       <button class="dir-control" onClick={handleButtonClick}>Select Article</button>
       {isOpen && (
         <div>
+          <button class="dir-control" onClick={() => props.handleModeChange('article')}>Article no 1</button>
           <button class="dir-control" onClick={() => props.handleModeChange('nostalgia')}>Article no 2</button>
           <button class="dir-control" onClick={() => props.handleModeChange('alga')}>Article no 3</button>
         </div>
@@ -35,13 +36,6 @@ function ParentButton(props) {
 }
 
 function AddImage(props) {
-  const handleFileSelect = (e) => {
-    if (e.target.files[0]) {
-      const file = e.target.files[0];
-      console.log(file.name);
-    }
-  };
-
   return (
     <label className="add-image" htmlFor="picture-input">
       <input
@@ -49,7 +43,7 @@ function AddImage(props) {
         id="picture-input"
         accept="image/*"
         style={{ display: 'none' }}
-        onChange={handleFileSelect}
+        onChange={props.handleImageSelect}
       />
       < FcAddImage />
     </label>
@@ -57,13 +51,6 @@ function AddImage(props) {
 }
 
 function AddVideo(props) {
-  const handleFileSelect = (e) => {
-    if (e.target.files[0]) {
-      const file = e.target.files[0];
-      console.log(file.name);
-    }
-  };
-
   return (
     <label className="add-video" htmlFor="video-input">
       <input
@@ -71,14 +58,12 @@ function AddVideo(props) {
         id="video-input"
         accept="video/*"
         style={{ display: 'none' }}
-        onChange={handleFileSelect}
+        onChange={props.handleFileSelect} 
       />
       <FcVideoFile />
     </label>
   );
 }
-
-
 
 function SocialMediaDropdown() {
   const [isOpen, setIsOpen] = useState(false);
@@ -113,18 +98,26 @@ function SocialMediaDropdown() {
 function Article() {
   const [viewMode, setViewMode] = useState('article');
   const [imageFile, setImageFile] = useState(null);
+  const [videoFile, setVideoFile] = useState(null);
+
 
   const handleModeChange = (mode) => {
     setViewMode(mode);
   };
 
-  const handleBackButton = () => {
-    setViewMode('article');
-  };
+  // const handleBackButton = () => {
+  //   setViewMode('article');
+  // };
 
   const handleImageSelect = (e) => {
     if (e.target.files[0]) {
       setImageFile(e.target.files[0]);
+    }
+  };
+  
+  const handleVideoSelect = (e) => {
+    if (e.target.files[0]) {
+      setVideoFile(e.target.files[0]);
     }
   };
   
@@ -136,24 +129,26 @@ function Article() {
 
         {viewMode === 'article' ? (
           <>
-            <h1 style={{ textAlign: 'center', marginBottom: '10px' }}>NFT Shill Art - EP #1</h1>
-            
-            <h3 style={{ marginBottom: '30px', fontWeight: 'normal' }}>
+         
+            <h1  style={{ textAlign: 'center' }}>NFT Shill Art - EP #1</h1>
+          
+            <h3 style={{  fontWeight: 'normal' }}>
               Preface by Doge Destiny, Founder of NFT Item Land
             </h3>
             
             
-            <div style={{ marginBottom: '10px' }}>
+            <div >
               <h3 style={{ fontWeight: 'normal' }}>1. Till Death Do Us</h3>
 
-              <ParagraphWithLink
+               
+                <ParagraphWithLink
                 text="An interesting 1/1 "
                 link="https://twitter.com/Khadee_ize"
                 linkText="@Khadee_ize on Twitter"
               />
             </div>
 
-            <div style={{ marginBottom: '10px' }}>
+            <div >
               <h3 style={{ fontWeight: 'normal' }}>2. IN MY FEELINGS</h3>
 
               <ParagraphWithLink
@@ -163,13 +158,16 @@ function Article() {
               />
             </div>
             
-            <img src="imageFile" />
+           
             
-            <div className="app"> <AddImage /> <AddVideo /> </div>
+    <div>
+      <AddImage handleImageSelect={handleImageSelect} />
+      <AddVideo handleFileSelect={handleVideoSelect} />
+      {imageFile && <img src={URL.createObjectURL(imageFile)} alt='' />}
+    </div>
 
               <ParentButton handleModeChange={handleModeChange} /> 
-              
-
+            
               <img
               src=""
               alt="Gifted PFP"
@@ -187,13 +185,13 @@ function Article() {
 
         ) : viewMode === 'nostalgia' ? (
           <>
-            <h1 style={{ textAlign: 'center', marginBottom: '10px' }}>Nostalgia</h1>
+            <h1 style={{ textAlign: 'center' }}>Nostalgia</h1>
             
-            <h3 style={{ marginBottom: '30px', fontWeight: 'normal' }}>
+            <h3 style={{ fontWeight: 'normal' }}>
                 Preface by Doge Destiny, Founder of NFT Item Land
             </h3>
 
-          <div style={{ marginBottom: '10px' }}>
+          <div >
           <h3 style={{ fontWeight: 'normal' }}>1. Old Memories</h3>
 
           <ParagraphWithLink
@@ -204,7 +202,7 @@ function Article() {
         </div>
         
         
-        <div style={{ marginBottom: '10px' }}>
+        <div >
           <h3 style={{ fontWeight: 'normal' }}>2. Vintage Cars</h3>
 
           <ParagraphWithLink
@@ -215,10 +213,6 @@ function Article() {
         </div>
         
         <div className="app"> <AddImage /> <AddVideo /> </div>
-
-        <div className="article-buttons-wrapper">  
-          <button class="dir-control" onClick={() => handleBackButton()}>Back to Article</button>
-        </div>
           
         <ParentButton handleModeChange={handleModeChange} />
 
@@ -228,14 +222,14 @@ function Article() {
 
     ) : viewMode === 'alga' ? (
       <>
-        <h1 style={{ textAlign: 'center', marginBottom: '10px' }}>Algae</h1>
+        <h1 style={{ textAlign: 'center' }}>Algae</h1>
         
-        <h3 style={{ marginBottom: '30px', fontWeight: 'normal' }}>
+        <h3 style={{ fontWeight: 'normal' }}>
           Preface by Doge Destiny, Founder of NFT Item Land
         </h3>
         
         
-        <div style={{ marginBottom: '10px' }}>
+        <div >
           <h3 style={{ fontWeight: 'normal' }}>1. Oceanic Algae</h3>
 
           <ParagraphWithLink
@@ -246,7 +240,7 @@ function Article() {
         </div>
         
         
-        <div style={{ marginBottom: '10px' }}>
+        <div >
           <h3 style={{ fontWeight: 'normal' }}>2. Forest Algae</h3>
 
           <ParagraphWithLink
@@ -257,10 +251,6 @@ function Article() {
         </div>
 
         <div className="app"> <AddImage /> <AddVideo /> </div>
-        
-        <div className="article-buttons-wrapper">
-          <button class="dir-control" onClick={() => handleBackButton()}>Back to Article</button>
-        </div>
         
         <ParentButton handleModeChange={handleModeChange} />
 
