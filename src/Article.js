@@ -65,6 +65,8 @@ function AddVideo(props) {
   );
 }
 
+
+
 function SocialMediaDropdown() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -95,7 +97,7 @@ function SocialMediaDropdown() {
 }
 
 
-function Article() {
+function Article(props) {
   const [viewMode, setViewMode] = useState('article');
   const [imageFile, setImageFile] = useState(null);
   const [videoFile, setVideoFile] = useState(null);
@@ -115,11 +117,13 @@ function Article() {
     }
   };
   
+  
   const handleVideoSelect = (e) => {
     if (e.target.files[0]) {
       setVideoFile(e.target.files[0]);
     }
   };
+  
   
   return (
     <div className="article-wrapper">
@@ -160,16 +164,21 @@ function Article() {
             
            
             
-    <div>
+    <div>      
+      {imageFile && <img src={URL.createObjectURL(imageFile)} style={{ width: '300%', maxWidth: '300px' }} alt="Daisy a bridal bridge between man and reality" />}
+
+      {videoFile && <video src={URL.createObjectURL(videoFile)} style={{ width: '300%', maxWidth: '300' }} controls />}
+    </div>
+
+    <div style={{ display: 'flex' }}>
       <AddImage handleImageSelect={handleImageSelect} />
       <AddVideo handleFileSelect={handleVideoSelect} />
-      {imageFile && <img src={URL.createObjectURL(imageFile)} alt='' />}
     </div>
 
               <ParentButton handleModeChange={handleModeChange} /> 
             
               <img
-              src=""
+              src="https://i.seadn.io/gae/tV8LTB8DQDVtqOgK43y8nHWRGaTntocybPZYrSL9DJRKzR92FAwWzydWa-yWCVJJA8PdaodV2FcoFys6DshsHHHcAzpwVApDx8joXg?auto=format&w=1000"
               alt="Gifted PFP"
               style={{
                 width: '300px',
